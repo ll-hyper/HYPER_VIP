@@ -1,14 +1,6 @@
-# Copyright (C) 2024 by VISHAL-PANDEY@Github, < https://github.com/vishalpandeynkp1 >.
-#
-# This file is part of < https://github.com/vishalpandeynkp1/VIPNOBITAMUSIC_REPO > project,
-# and is released under the "GNU v3.0 License Agreement".
-# Please see < https://github.com/vishalpandeynkp1/VIPNOBITAMUSIC_REPO/blob/master/LICENSE >
-#
-# All rights reserved.
-#
-
 import asyncio
 import shlex
+import os
 from typing import Tuple
 
 from git import Repo
@@ -42,12 +34,17 @@ def install_req(cmd: str) -> Tuple[str, str, int, int]:
 
 def git():
     REPO_LINK = config.UPSTREAM_REPO
-    if config.GIT_TOKEN:
-        GIT_USERNAME = REPO_LINK.split("com/")[1].split("/")[0]
-        TEMP_REPO = REPO_LINK.split("https://")[1]
-        UPSTREAM_REPO = f"https://{GIT_USERNAME}:{config.GIT_TOKEN}@{TEMP_REPO}"
+
+    # GitHub Username aur Token ko environment variables se fetch karo
+    GIT_USERNAME = os.getenv("GIT_USERNAME", "vishalpandeynkp1")
+    GIT_TOKEN = os.getenv("GIT_TOKEN", None)
+
+    if GIT_TOKEN:
+        TEMP_REPO = REPO_LINK.replace("https://", "")
+        UPSTREAM_REPO = f"https://{GIT_USERNAME}:{GIT_TOKEN}@{TEMP_REPO}"
     else:
         UPSTREAM_REPO = config.UPSTREAM_REPO
+
     try:
         repo = Repo()
         LOGGER(__name__).info(f"Git Client Found [VPS DEPLOYER]")
