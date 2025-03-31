@@ -59,10 +59,10 @@ async def init():
     await userbot.start()
     await VIP.start()
     await VIP.decorators()
-    LOGGER("VIPMUSIC").info("VIPMUSIC STARTED SUCCESSFULLY 🕊️")
+    LOGGER("VIPMUSIC").info("NOBITAMUSIC STARTED SUCCESSFULLY 🕊️")
     await idle()
 
 
 if __name__ == "__main__":
     asyncio.get_event_loop_policy().get_event_loop().run_until_complete(init())
-    LOGGER("VIPMUSIC").info("Stopping VIPMUSIC! GoodBye")
+    LOGGER("VIPMUSIC").info("Stopping VIPMUSIC! CHAL NIKAL LAUDE")
