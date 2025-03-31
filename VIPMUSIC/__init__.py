@@ -8,15 +8,28 @@
 #
 # All rights reserved.
 
+import config
 from VIPMUSIC.core.bot import VIPBot
 from VIPMUSIC.core.dir import dirr
 from VIPMUSIC.core.git import git
 from VIPMUSIC.core.userbot import Userbot
-from VIPMUSIC.misc import dbb, heroku, sudo
+from YukkiMusic.misc import dbb, heroku, sudo
 
 from .logging import LOGGER
 
-# Bot Client
+# Pyrogram Client
+
+app = VIPMUSIC(
+    "VIPMUSIC",
+    api_id=config.API_ID,
+    api_hash=config.API_HASH,
+    bot_token=config.BOT_TOKEN,
+    sleep_threshold=240,
+    max_concurrent_transmissions=5,
+    workers=50,
+)
+
+userbot = Userbot()
 
 # Directories
 dirr()
@@ -33,18 +46,8 @@ heroku()
 # Load Sudo Users from DB
 sudo()
 
-app = VIPBot()
 
-# Assistant Client
-userbot = Userbot()
+from .platforms import PlaTForms
 
-from .platforms import *
-
-YouTube = YouTubeAPI()
-Carbon = CarbonAPI()
-Spotify = SpotifyAPI()
-Apple = AppleAPI()
-Resso = RessoAPI()
-SoundCloud = SoundAPI()
-Telegram = TeleAPI()
+Platform = PlaTForms()
 HELPABLE = {}
